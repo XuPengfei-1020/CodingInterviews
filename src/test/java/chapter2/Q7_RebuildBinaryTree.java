@@ -1,12 +1,8 @@
 package chapter2;
 
-import org.junit.Assert;
+import datastructure.BinaryTreeNode;
 import org.junit.Test;
 import util.Util;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
 
 /**
  * 题目：输入某二叉树的前序遍历和中序遍历的结果，请重建该二叉树。
@@ -71,72 +67,12 @@ public class Q7_RebuildBinaryTree {
         return -1;
     }
 
-    /**
-     * 中序遍历
-     */
-    private Integer[] inOrder(BinaryTreeNode node) {
-        List<Integer> result = new ArrayList<>();
-        Stack<BinaryTreeNode> stack = new Stack<>();
-        stack.add(node);
-        boolean addLeft = true;
-
-        while (!stack.isEmpty()) {
-            node = stack.peek();
-
-            if (addLeft && node.left != null) {
-                stack.add(node.left);
-                continue;
-            }
-
-            result.add(stack.pop().value);
-
-            if (addLeft = (node.right != null)) {
-                stack.add(node.right);
-            }
-        }
-
-        return result.toArray(new Integer[result.size()]);
-    }
-
-    /**
-     * 先序遍历
-     */
-    private Integer[] preOrder(BinaryTreeNode node) {
-        Stack<BinaryTreeNode> stack = new Stack<>();
-        stack.add(node);
-        List<Integer> result = new ArrayList<>();
-
-        while (!stack.isEmpty()) {
-            node = stack.pop();
-            result.add(node.value);
-
-            if (node.right !=  null) {
-                stack.add(node.right);
-            }
-
-            if (node.left != null) {
-                stack.add(node.left);
-            }
-        }
-
-        return result.toArray(new Integer[result.size()]);
-    }
-
     @Test
     public void test() {
         int[] preOrder = new int[] {1, 2, 4, 7, 3, 5, 6, 8};
         int[] inOrder = new int[] {4, 7, 2, 1, 5, 3, 8, 6};
         BinaryTreeNode node = rebuildBinaryTree(preOrder, 0, inOrder, 0, inOrder.length - 1);
-        Util.assertArrayEquals(preOrder(node), preOrder);
-        Util.assertArrayEquals(inOrder(node), inOrder);
-    }
-
-    /**
-     * 二叉树节点
-     */
-    private static class BinaryTreeNode {
-        public int value;
-        public BinaryTreeNode left;
-        public BinaryTreeNode right;
+        Util.assertArrayEquals(node.preOrder(), preOrder);
+        Util.assertArrayEquals(node.inOrder(), inOrder);
     }
 }

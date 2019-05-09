@@ -2,10 +2,7 @@ package chapter4;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.omg.PortableInterceptor.INACTIVE;
-import sun.awt.image.ImageWatched;
 
-import java.util.Collections;
 import java.util.LinkedList;
 
 /**
