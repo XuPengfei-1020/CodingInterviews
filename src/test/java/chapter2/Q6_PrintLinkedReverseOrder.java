@@ -2,10 +2,9 @@ package chapter2;
 
 import org.junit.Assert;
 import org.junit.Test;
-import util.Util;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Stack;
 
 /**
@@ -18,19 +17,25 @@ public class Q6_PrintLinkedReverseOrder {
     /**
      * 非递归
      */
-    private Integer[] printSingleLinkedListReverseOrder(SingleLinkedNode rootNode) {
+    private int[] printSingleLinkedListReverseOrder(SingleLinkedNode rootNode) {
         if (rootNode == null) {
             return null;
         }
 
-        Stack<SingleLinkedNode> stack = new Stack<>();
+        Stack<Integer> stack = new Stack<>();
 
         while (rootNode != null) {
-            stack.add(rootNode);
+            stack.add(rootNode.value);
             rootNode = rootNode.next;
         }
 
-        return stack.toArray(new Integer[0]);
+        int[] result = new int[stack.size()];
+
+        for (int i = 0; i < result.length; i++) {
+            result[i] = stack.pop();
+        }
+
+        return result;
     }
 
     /**
@@ -75,20 +80,21 @@ public class Q6_PrintLinkedReverseOrder {
         SingleLinkedNode singleLinkedNode = root;
         int length = 0;
         int[] expect =  new int[11];
-        expect[0] = 0;
+        expect[0] = 10;
 
         while (length++ < 10) {
-            expect[length] = length;
+            expect[expect.length - length] = length - 1;
             singleLinkedNode.next = new SingleLinkedNode();
             singleLinkedNode.next.value = length;
             singleLinkedNode = singleLinkedNode.next;
         }
 
 
-        Util.assertArrayEquals(printSingleLinkedListReverseOrder(root), expect);
+        Assert.assertTrue(Arrays.equals(printSingleLinkedListReverseOrder(root), expect));
         ArrayList<Integer> resultList = new ArrayList();
         printSingleLinkedListReverseOrderRecursive(root, resultList);
-        Util.assertArrayEquals(resultList.toArray(new Integer[0]), expect);
+        Assert.assertTrue(
+            Arrays.equals(Arrays.stream(resultList.toArray(new Integer[0])).mapToInt(i->i).toArray() , expect));
 
         TwoWayLinkedNode twoWayLinkedNode = new TwoWayLinkedNode();
         twoWayLinkedNode.value = --length;
@@ -100,7 +106,8 @@ public class Q6_PrintLinkedReverseOrder {
             twoWayLinkedNode = twoWayLinkedNode.prev;
         }
 
-        Util.assertArrayEquals(printTowWayLinkedListReverseOrder(twoWayLinkedNode), expect);
+        Assert.assertTrue(Arrays.equals(
+            Arrays.stream(printTowWayLinkedListReverseOrder(twoWayLinkedNode)).mapToInt(i->i).toArray(), expect));
     }
 
     /**

@@ -1,9 +1,9 @@
 package chapter4;
 
 import datastructure.BinaryTreeNode;
-import org.junit.Assert;
 import org.junit.Test;
-import util.Util;
+
+import java.util.Arrays;
 
 /**
  * 题目一：不分行从上到下打印二叉树
@@ -26,6 +26,7 @@ public class Q32_DFSBinaryTree {
             new Object[] {10, new Object[] {9}, new Object[] {11}}
         });
 
-        Util.assertArrayEquals(head.depthTraversal(), new int[] {8, 6, 10, 5, 7, 9, 11});
+        Arrays.equals(Arrays.stream(head.depthTraversal()).mapToInt(i->i).toArray(),
+            new int[] {8, 6, 10, 5, 7, 9, 11});
     }
 }

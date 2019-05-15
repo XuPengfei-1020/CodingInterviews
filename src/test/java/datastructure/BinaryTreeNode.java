@@ -1,6 +1,5 @@
 package datastructure;
 
-import javax.management.RuntimeMBeanException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -162,7 +161,7 @@ public class BinaryTreeNode {
      * 反序列化，私有
      */
     private static BinaryTreeNode deserialize(String str, int start, int end) {
-        if (str == null || str.length() == 0 || start == end - 1) {
+        if (str == null || str.length() == 0 || start >= end - 1) {
             return null;
         }
 

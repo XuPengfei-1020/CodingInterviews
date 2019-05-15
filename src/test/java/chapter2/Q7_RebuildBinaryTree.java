@@ -1,8 +1,10 @@
 package chapter2;
 
 import datastructure.BinaryTreeNode;
+import org.junit.Assert;
 import org.junit.Test;
-import util.Util;
+
+import java.util.Arrays;
 
 /**
  * 题目：输入某二叉树的前序遍历和中序遍历的结果，请重建该二叉树。
@@ -72,7 +74,7 @@ public class Q7_RebuildBinaryTree {
         int[] preOrder = new int[] {1, 2, 4, 7, 3, 5, 6, 8};
         int[] inOrder = new int[] {4, 7, 2, 1, 5, 3, 8, 6};
         BinaryTreeNode node = rebuildBinaryTree(preOrder, 0, inOrder, 0, inOrder.length - 1);
-        Util.assertArrayEquals(node.preOrder(), preOrder);
-        Util.assertArrayEquals(node.inOrder(), inOrder);
+        Assert.assertTrue(Arrays.equals(Arrays.stream(node.preOrder()).mapToInt(i->i).toArray() , preOrder));
+        Assert.assertTrue(Arrays.equals(Arrays.stream(node.inOrder()).mapToInt(i->i).toArray() , inOrder));
     }
 }

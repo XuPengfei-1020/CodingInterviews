@@ -12,7 +12,7 @@ import org.junit.Test;
  *
  * @author flying
  */
-public class ConvertSearchBinaryTreeToTowWayLinked {
+public class Q38_ConvertSearchBinaryTreeToTowWayLinked {
     /**
      * 简单。对于一个简单的二叉树。左子树是头部，自己是中间，右子树是尾巴。递归重复这个过程就好了。
      * 假设一个节点的 left 是他的上一个，right 是她的下一个。
