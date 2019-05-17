@@ -16,15 +16,29 @@ public class Q28_IfABinaryTreeIsMirroTree {
      * 递归就是简洁！
      */
     private boolean isMirro(BinaryTreeNode root) {
-        if (root.left == null || root.right == null) {
-            return root.left == root.right;
+        mirror(root.left);
+        return diff(root.left, root.right);
+    }
+
+    /**把左子树翻转了*/
+    private void mirror(BinaryTreeNode root) {
+        if (root == null) return;
+        BinaryTreeNode left = root.left;
+        mirror(root.left = root.right);
+        mirror(root.right = left);
+    }
+
+    /**判断两个 tree 是否相同**/
+    private boolean diff(BinaryTreeNode tree1, BinaryTreeNode tree2) {
+        if (tree1 == null || tree2 == null) {
+            return tree1 == null && tree2 == null;
         }
 
-        if (root.left.value != root.right.value) {
+        if (tree1.value != tree2.value) {
             return false;
         }
 
-        return isMirro(root.left) && isMirro(root.right);
+        return diff(tree1.left, tree2.left) && diff(tree1.right, tree2.right);
     }
 
     @Test
