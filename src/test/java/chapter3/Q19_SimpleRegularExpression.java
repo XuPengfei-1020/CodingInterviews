@@ -3,6 +3,8 @@ package chapter3;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.HashSet;
+
 /**
  * 题目：请实现一个函数用来匹配包含'.'和'*' 的正则表达式。模式中的字
  * 符 '.' 表示任意一个字符，而 * 表示它前面的字符可以出现任意次（含0次）。
@@ -15,76 +17,118 @@ public class Q19_SimpleRegularExpression {
     /**
      * 如果只有 .* 这样的操作，那么就是有两种运算元素，操作数和操作符，并且没有运算优先级，那么就简单了一些了。
      */
-    private boolean match(String reg, String text) {
-        if (reg == null || text == null) {
-            throw new IllegalArgumentException("param is invalid");
+    public boolean match(String s, String p) {
+        if (s == null || p == null) {
+            throw new IllegalArgumentException("Param is invalid!");
         }
 
-        // text 中的 index
-        int index = 0;
+        if (p.length() == 0) {
+            return s.length() == 0;
+        }
 
-        for (int i = 0; i < reg.length();) {
-            if (index == text.length()) {
-                // 匹配完毕了，看一下剩余的 reg 中是不是都是 * 号的 operand + operator 组合。
-                while (i < reg.length()) {
-                    if ((i + 1) == reg.length() || reg.charAt(i + 1) != '*') {
-                        return false;
-                    }
+        RegUnit head = null;
+        RegUnit current = null;
 
-                    i += 2;
+        for(int i = 0; i < p.length(); i++) {
+            char c = p.charAt(i);
+            boolean star = i + 1 < p.length() && p.charAt(i + 1) == '*';
+
+            if (star) {
+                i++;
+            }
+
+            if (current == null) {
+                current = new RegUnit(c, star);
+                head = current;
+                continue;
+            }
+
+            current.next = new RegUnit(c, star);
+            current = current.next;
+        }
+
+        // mark as accpet
+        RegUnit accept = new RegUnit(Integer.MIN_VALUE, false);
+        current.next = accept;
+        HashSet<RegUnit> curStates = new HashSet<>();
+        HashSet<RegUnit> tempStates = new HashSet<>();
+
+        while(head != null && head.star) {
+            curStates.add(head);
+            head = head.next;
+        }
+
+        if (head != null) {
+            curStates.add(head);
+        }
+
+        for(int i = 0; i < s.length(); i++) {
+            if (curStates.size() == 0) {
+                return false;
+            }
+
+            char c = s.charAt(i);
+
+            for(RegUnit state : curStates) {
+                if (state.match(c)) {
+                    state.moveToNexts(tempStates);
                 }
+            }
 
+            curStates.clear();
+            HashSet<RegUnit> temp = tempStates;
+            tempStates = curStates;
+            curStates = temp;
+        }
+
+        for (RegUnit state : curStates) {
+            if (state == accept) {
                 return true;
             }
-
-            char operand = reg.charAt(i);
-            char operator = ((i + 1) < reg.length()) ? reg.charAt(i + 1) : '0';
-            char c = text.charAt(index++);
-
-            if (operand == '.' || c == operand) {
-                // 匹配上了, 如果 operator 是 *，那么 i 不动，继续匹配下一个 char，如果 operator 不是 *，那么 i 需要往前推进。
-                i = i + (operator == '*' ? 0 : 1);
-                continue;
-            }
-
-            if (operator == '*')  {
-                // 不匹配，并且是 *，那么使用当前的 char 匹配下一个 operand
-                i += 2;
-                index --;
-                continue;
-            }
-
-            return false;
         }
 
-        // 是否是 reg 过早结束？
-        return index == text.length();
+        return false;
     }
 
-    /**
-     * 把 reg 中多余的 * 合并成一个。
-     * a***b > a*b
-     */
-    private String cleanReg(String reg) {
-        if (reg == null || reg.length() == 0) {
-            return reg;
+    class RegUnit {
+        boolean star;
+        boolean spot;
+        int character;
+        RegUnit next;
+
+        RegUnit(int character, boolean star) {
+            this.character = character;
+            this.spot = character == '.';
+            this.star = star;
         }
 
-        StringBuilder sb = new StringBuilder();
+        boolean match(char c) {
+            return spot || character == c;
+        }
 
-        for (char c : reg.toCharArray()) {
-            if (c != '*' || sb.length() == 0 || sb.charAt(sb.length() - 1) != '*') {
-                sb.append(c);
+        void moveToNexts(HashSet<RegUnit> states) {
+            if (star) {
+                states.add(this);
+            }
+
+            RegUnit nextState = this.next;
+
+            while(nextState != null && nextState.star) {
+                states.add(nextState);
+                nextState = nextState.next;
+            }
+
+            if (nextState != null) {
+                states.add(nextState);
             }
         }
-
-        return sb.toString();
     }
 
     @Test
     public void test() {
         String[][] testCases = new String[][] {
             new String[] {"aaa", "aaa", "true"},
+            new String[] {"ab", ".*..", "true"},
             new String[] {"aaa", "a*", "true"},
             new String[] {"aaa", "a*b*", "true"},
             new String[] {"aaa", "a*c*b*d*", "true"},
@@ -100,6 +144,7 @@ public class Q19_SimpleRegularExpression {
             new String[] {"abcdddd", "abcd*", "true"},
             new String[] {"", "a*", "true"},
             new String[] {"", "a*", "true"},
+            new String[] {"", ".", "false"},
             new String[] {"aaa", "a*b", "false"},
             new String[] {"aaa", "aaab", "false"},
             new String[] {"aaa", "a*b", "false"},
@@ -112,7 +157,7 @@ public class Q19_SimpleRegularExpression {
         };
 
         for (String[] testCase : testCases) {
-            boolean b = String.valueOf(match(testCase[1], testCase[0])) == testCase[2];
+            boolean b = String.valueOf(match(testCase[0], testCase[1])) == testCase[2];
 
             if (!b) {
                 System.out.println(testCase[0] + ", " + testCase[1] + ", " + testCase[2]);
