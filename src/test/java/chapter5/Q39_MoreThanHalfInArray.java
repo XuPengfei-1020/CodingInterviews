@@ -33,6 +33,13 @@ public class Q39_MoreThanHalfInArray {
             times += i == lastNum ? 1 : -1;
         }
 
+        times = 0;
+        for (int i : array) {
+            if (i == lastNum) times++;
+        }
+
+        if (times <= array.length / 2) throw new RuntimeException("There is no element witch count of occurrence gt " +
+            "half of length of array");
         return lastNum;
     }
 
@@ -41,6 +48,7 @@ public class Q39_MoreThanHalfInArray {
         Assert.assertTrue(moreThanHalf(new int[] {1}) == 1);
         Assert.assertTrue(moreThanHalf(new int[] {1, 1, 2}) == 1);
         Assert.assertTrue(moreThanHalf(new int[] {1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7}) == 1);
+        Assert.assertTrue(moreThanHalf(new int[] {1, 2, 1, 3, 1, 4, 1, 5, 2, 6, 1, 1, 1, 7}) == 1);
     }
 
 }
