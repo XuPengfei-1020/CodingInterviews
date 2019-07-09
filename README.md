@@ -105,8 +105,9 @@
     - [Q66 构建乘积数组](https://github.com/flying1020/CodingInterviews/blob/master/src/test/java/chapter6/Q66_BuildMulArray.java)
 
 # 另外长期更新 leetcode 题目分享：
-- [两个排序数组的中位数(Median of two sorted arrays)](https://leetcode.com/problems/median-of-two-sorted-arrays/) 实现：[MedianSortedArrays.java](https://github.com/flying1020/CodingInterviews/blob/master/src/test/java/leetcode/MedianSortedArrays.java)
-- [N皇后问题(n queens)](https://leetcode.com/problems/n-queens/submissions/) 实现：[NQueens.java  faster than 95%， memory less than 100%](https://github.com/flying1020/CodingInterviews/blob/master/src/test/java/leetcode/NQueens.java)
-- [数组跳跃问题(jump game ii)](https://leetcode.com/problems/jump-game-ii/) 实现：[JumpGame.java faster than 100%， memory less than 100%](https://github.com/flying1020/CodingInterviews/blob/master/src/test/java/leetcode/JumpGame.java)
-- [最长无重复的子字符串(longest substring without repeating characters)](https://leetcode.com/problems/longest-substring-without-repeating-characters/) 实现：[LongestSubstringWithoutRepeatingCharacters.java](https://github.com/flying1020/CodingInterviews/blob/master/src/test/java/leetcode/LongestSubstringWithoutRepeatingCharacters.java)
+- [两个排序数组的中位数(Median of two sorted arrays)](https://github.com/flying1020/CodingInterviews/blob/master/src/test/java/leetcode/MedianSortedArrays.java)
+- [N皇后问题(n queens)](https://github.com/flying1020/CodingInterviews/blob/master/src/test/java/leetcode/NQueens.java)
+- [数组跳跃问题(jump game ii)](https://github.com/flying1020/CodingInterviews/blob/master/src/test/java/leetcode/JumpGame.java)
+- [最长无重复的子字符串(longest substring without repeating characters)](https://github.com/flying1020/CodingInterviews/blob/master/src/test/java/leetcode/LongestSubstringWithoutRepeatingCharacters.java)
+- [累积雨水问题(trapping rain water)](https://github.com/flying1020/CodingInterviews/blob/master/src/test/java/leetcode/TrappingRainWater.java)
 - 欢迎 fork，提交你的 leetcode 分享（hard 级别）
