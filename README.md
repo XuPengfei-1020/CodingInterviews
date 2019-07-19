@@ -1,4 +1,4 @@
-# CodingInterviews
+# [CodingInterviews](https://github.com/flying1020/CodingInterviews)
 《剑指 offer》 全部面试题 java 版本，自己写的，个别题目和书中介绍的思路有出入，但是绝大多数是一致的。因为从头到尾都是自己手写的，难免出错，欢迎帮忙纠错。
 转载算法实现请注明出处。
 
@@ -104,10 +104,11 @@
     - [Q65 不用加减乘除做加法](https://github.com/flying1020/CodingInterviews/blob/master/src/test/java/chapter6/Q65_AddOperatorWithMathOperator.java)
     - [Q66 构建乘积数组](https://github.com/flying1020/CodingInterviews/blob/master/src/test/java/chapter6/Q66_BuildMulArray.java)
 
-# 另外长期更新 leetcode 题目分享：
+# leetcode 题目分享（长期更新）：
 - [两个排序数组的中位数(Median of two sorted arrays)](https://github.com/flying1020/CodingInterviews/blob/master/src/test/java/leetcode/MedianSortedArrays.java)
 - [N皇后问题(n queens)](https://github.com/flying1020/CodingInterviews/blob/master/src/test/java/leetcode/NQueens.java)
 - [数组跳跃问题(jump game ii)](https://github.com/flying1020/CodingInterviews/blob/master/src/test/java/leetcode/JumpGame.java)
 - [最长无重复的子字符串(longest substring without repeating characters)](https://github.com/flying1020/CodingInterviews/blob/master/src/test/java/leetcode/LongestSubstringWithoutRepeatingCharacters.java)
 - [累积雨水问题(trapping rain water)](https://github.com/flying1020/CodingInterviews/blob/master/src/test/java/leetcode/TrappingRainWater.java)
+- [插入区间(insert interval)](https://github.com/flying1020/CodingInterviews/blob/master/src/test/java/leetcode/InsertInterval.java)
 - 欢迎 fork，提交你的 leetcode 分享（hard 级别）
